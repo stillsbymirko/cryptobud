@@ -2,6 +2,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db/prisma'
 import { redirect } from 'next/navigation'
 import { Portfolio, Transaction } from '@prisma/client'
+import { getNextTaxFreeSales } from '@/lib/tax/calculator'
 
 async function getDashboardData(userId: string) {
   const transactions = await prisma.transaction.findMany({
@@ -32,11 +33,15 @@ async function getDashboardData(userId: string) {
     0
   )
 
+  // Get next tax-free sales
+  const nextTaxFree = getNextTaxFreeSales(transactions).slice(0, 5)
+
   return {
     totalValue,
     stakingTotal,
     portfolios: portfolios.slice(0, 5),
     recentTransactions: transactions.slice(0, 5),
+    nextTaxFree,
   }
 }
 
@@ -143,7 +148,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Recent Transactions */}
-      <div className="bg-white shadow rounded-lg">
+      <div className="bg-white shadow rounded-lg mb-8">
         <div className="px-6 py-4 border-b border-gray-200">
           <h2 className="text-lg font-semibold text-gray-900">
             Letzte Transaktionen
@@ -182,6 +187,44 @@ export default async function DashboardPage() {
           )}
         </div>
       </div>
+
+      {/* Next Tax-Free Sales */}
+      {data.nextTaxFree.length > 0 && (
+        <div className="bg-white shadow rounded-lg">
+          <div className="px-6 py-4 border-b border-gray-200">
+            <h2 className="text-lg font-semibold text-gray-900">
+              Nächste steuerfreie Verkäufe
+            </h2>
+          </div>
+          <div className="p-6">
+            <div className="space-y-4">
+              {data.nextTaxFree.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex justify-between items-center"
+                >
+                  <div>
+                    <p className="font-medium text-gray-900">
+                      {item.cryptocurrency}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {item.amount.toFixed(8)} Einheiten
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium text-profit">
+                      in {item.daysUntilTaxFree} Tagen
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {item.date.toLocaleDateString('de-DE')}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

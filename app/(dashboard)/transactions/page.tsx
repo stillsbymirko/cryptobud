@@ -18,12 +18,20 @@ export default async function TransactionsPage() {
   }
 
   const transactions = await getTransactions(session.user.id)
+  const currentYear = new Date().getFullYear()
 
   return (
     <div className="px-4 sm:px-0">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Transaktionen</h1>
         <div className="flex gap-4">
+          <a
+            href={`/api/export?year=${currentYear}`}
+            download
+            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+          >
+            CSV Export
+          </a>
           <Link
             href="/transactions/import"
             className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-blue-600 transition-colors"
