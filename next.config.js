@@ -1,10 +1,18 @@
-'use strict';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
+    experimental: {
+        serverActions: {
+            allowedOrigins: ['localhost:3000'],
+        },
+    },
     images: {
-        domains: ['example.com'], // Add your allowed image domains here
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'assets.coingecko.com',
+            },
+        ],
     },
 };
 
