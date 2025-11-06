@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String        @id @default(cuid())
+  email         String        @unique
+  password      String
+  name          String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  transactions  Transaction[]
+  portfolios    Portfolio[]
+}
+
+model Transaction {
+  id              String   @id @default(cuid())
+  userId          String
+  date            DateTime
+  cryptocurrency  String
+  amount          Float
+  priceEUR        Float
+  type            String   // buy, sell, staking
+  exchange        String   // Bitpanda, 21Bitcoin, Kraken, Binance, Coinbase, Bitstamp
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([date])
+  @@index([type])
+}
+
+model Portfolio {
+  id              String   @id @default(cuid())
+  userId          String
+  cryptocurrency  String
+  totalAmount     Float
+  averageBuyPrice Float
+  lastUpdated     DateTime @updatedAt
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cryptocurrency])
+  @@index([userId])
+}
