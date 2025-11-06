@@ -1,0 +1,216 @@
+.container {
+  min-height: 100vh;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+}
+
+.header {
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(to right, #00d4ff, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #a0a0a0;
+  margin-bottom: 1rem;
+}
+
+.refreshButton {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  font-weight: 600;
+}
+
+.refreshButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.refreshButton:active {
+  transform: translateY(0);
+}
+
+.refreshButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading {
+  font-size: 1.5rem;
+  padding: 2rem;
+  color: #00d4ff;
+  text-align: center;
+}
+
+.error {
+  background: rgba(255, 77, 77, 0.1);
+  border: 1px solid #ff4d4d;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  color: #ff4d4d;
+  text-align: center;
+  max-width: 600px;
+}
+
+.cryptoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.cryptoCard {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cryptoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 212, 255, 0.2);
+  border-color: rgba(0, 212, 255, 0.3);
+}
+
+.cryptoHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cryptoRank {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  font-weight: 600;
+  min-width: 30px;
+}
+
+.cryptoSymbol {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00d4ff;
+  text-transform: uppercase;
+}
+
+.cryptoName {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-left: auto;
+}
+
+.cryptoPrice {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  color: #ffffff;
+}
+
+.cryptoChange {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.positive {
+  background: rgba(0, 255, 136, 0.1);
+  color: #00ff88;
+}
+
+.negative {
+  background: rgba(255, 77, 77, 0.1);
+  color: #ff4d4d;
+}
+
+.cryptoMarketCap {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-top: 0.5rem;
+}
+
+.marketCapLabel {
+  font-weight: 600;
+  color: #ffffff;
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .cryptoGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .cryptoGrid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .cryptoCard {
+    padding: 1rem;
+  }
+  
+  .cryptoPrice {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2rem;
+  }
+  
+  .cryptoGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .cryptoSymbol {
+    font-size: 1.3rem;
+  }
+  
+  .cryptoPrice {
+    font-size: 1.3rem;
+  }
+}
