@@ -1,7 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Head from 'next/head';
 import axios from 'axios';
 import styles from '../styles/Home.module.css';
+
+const BILLION = 1000000000;
+
+// Currency formatter - created once for efficiency
+const currencyFormatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2
+});
 
 export default function Home() {
   const [cryptos, setCryptos] = useState([]);
@@ -49,16 +59,11 @@ export default function Home() {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    }).format(price);
+    return currencyFormatter.format(price);
   };
 
   const formatMarketCap = (marketCap) => {
-    const billions = marketCap / 1000000000;
+    const billions = marketCap / BILLION;
     return `$${billions.toFixed(2)}B`;
   };
 
