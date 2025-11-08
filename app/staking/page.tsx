@@ -332,7 +332,7 @@ export default function StakingPage() {
             </p>
             <p>
               <strong>Above Threshold:</strong> Rewards exceeding 256€ must be reported
-              as "Other Income" on your tax return.
+              as &quot;Other Income&quot; on your tax return.
             </p>
             <p>
               <strong>Important:</strong> This applies to staking rewards, mining income,
