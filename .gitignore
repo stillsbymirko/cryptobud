@@ -8,7 +8,6 @@ yarn-error.log
 coverage/
 tests-results.xml
 *.tgz
-*.lock
 
 # Next.js
 .next/
@@ -18,3 +17,7 @@ build/
 
 # Vercel
 .vercel
+
+# Prisma
+prisma/migrations/dev.db
+prisma/migrations/dev.db-journal
